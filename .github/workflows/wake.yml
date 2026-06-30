@@ -2,7 +2,7 @@ name: Streamlit Keep-Awake Engine
 
 on:
   schedule:
-    - cron: "0 */4 * * *" # Runs perfectly every 4 hours, 365 days a year
+    - cron: "0 */3 * * *" # Runs perfectly every 4 hours, 365 days a year
   workflow_dispatch: # Allows you to manually trigger it from the UI anytime
 
 jobs:
