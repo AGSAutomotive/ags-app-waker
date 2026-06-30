@@ -8,9 +8,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
-# 1. Target URL Setup (Currently pointed to a known sleeping app for your test)
-# Swap this back to "https://agsroofmappingtool.streamlit.app/" when your test passes!
-STREAMLIT_URL = os.environ.get("https://verneylogyt.streamlit.app/")
+# 1. Defensive Target URL Setup
+env_url = os.environ.get("STREAMLIT_APP_URL")
+
+# Cleanly check if the environment variable is actually a valid, non-empty URL string
+if env_url and env_url.strip() and env_url.lower() != "none":
+    STREAMLIT_URL = env_url.strip()
+else:
+    # Safe fallback if GitHub passes a blank or null value
+    STREAMLIT_URL = "https://verneylogyt.streamlit.app/"
 
 print(f"Launching headless browser to inspect: {STREAMLIT_URL}")
 
