@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
-STREAMLIT_URL = os.environ.get("STREAMLIT_APP_URL", "https://agsroofmappingtool.streamlit.app/")
+STREAMLIT_URL = os.environ.get("STREAMLIT_APP_URL", "https://verneylogyt.streamlit.app/")
 
 print(f"Launching headless browser to inspect: {STREAMLIT_URL}")
 
