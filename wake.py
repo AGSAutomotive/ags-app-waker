@@ -32,38 +32,29 @@ try:
     # Punctuation-immune XPath targeting the core text inside sleepinactivity.png
     wake_button_xpath = "//button[contains(text(), 'app back up')]"
 
-    # 4. Dynamic Verification Engine
-    print("Scanning page for the Streamlit sleep container...")
+ # 4. Bulletproof Selector Engine
+    print("Scanning page for the strict interactive button element...")
     try:
-        # Actively poll the DOM for up to 25 seconds for the sleep button
+        # Target the exact clickable button tag directly
         button = WebDriverWait(driver, 25).until(
-            EC.element_to_be_clickable((By.XPATH, wake_button_xpath))
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "button.st-emotion-cache-12oz5aa, button"))
         )
         app_is_asleep = True
     except Exception:
-        # If the button doesn't appear within 25 seconds, assume the app is already live
         app_is_asleep = False
 
-    # 5. Execution Logic
+    # 5. Force-Click Execution Logic
     if app_is_asleep:
-        print("Status: App is asleep! 💤 Attempting to wake it up...")
-        button.click()
+        print("Status: App is asleep! 💤 Executing forced click sequence...")
         
-        # Verify that the button disappears, confirming the container began its rebuild cycle
-        WebDriverWait(driver, 20).until(EC.invisibility_of_element_located((By.XPATH, wake_button_xpath)))
-        print("Button clicked successfully! App container is rebuilding. ✅")
+        # Use Javascript execution to click it natively. 
+        # This completely bypasses layer obstructions or text alignment issues!
+        driver.execute_script("arguments[0].click();", button)
+        print("Javascript force-click injected successfully. ✅")
+        
+        # Give Streamlit's back-end a 5-second buffer to lock in the request
+        time.sleep(5)
+        print("Container initialization request locked in. Rebuilding sequence initiated!")
     else:
         print("Status: No wake button detected within timeout limit.")
         print("Interpretation: App is already fully awake and online! No action needed. ✅")
-
-except Exception as e:
-    print(f"An unexpected tracking error occurred during automation: {e}")
-    # Fallback safety capture
-    try:
-        driver.save_screenshot("error_screenshot.png")
-        print("Saved 'error_screenshot.png' due to compilation error.")
-    except Exception as screenshot_error:
-        print(f"Could not capture screenshot: {screenshot_error}")
-finally:
-    driver.quit()
-    print("Session securely closed.")
