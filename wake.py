@@ -28,7 +28,7 @@ try:
     print("Page opened. Waiting for elements to load...")
     time.sleep(10)
 
-    wake_button_xpath = "//button[contains(text(), 'Yes, get this app back up!')]"
+    wake_button_xpath = "//*[contains(text(), 'Yes, get this app back up!')]"
 
     if len(driver.find_elements(By.XPATH, wake_button_xpath)) > 0:
         print("Status: App is asleep! 💤 Attempting to wake it up...")
