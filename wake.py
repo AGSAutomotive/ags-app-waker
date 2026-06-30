@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 # Hardcoded test URL to bypass any GitHub environment variable overrides
-STREAMLIT_URL = "https://verneylogyt.streamlit.app/"
+STREAMLIT_URL = "https://agsroofmappingtool.streamlit.app/"
 
 print(f"Launching headless browser to inspect: {STREAMLIT_URL}")
 
